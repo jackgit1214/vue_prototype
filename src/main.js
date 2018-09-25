@@ -36,10 +36,10 @@ if (currentUser != undefined) {
     let routes = Menus //åŠ¨æ€å¢žåŠ çš„è·¯ç”±
     router.addRoutes(routes)
     //  this.$router.addRoutes(routes)
-    window.sessionStorage.removeItem('isLoadNodes') //è·¯ç”±çŠ¶æ€?
+    //window.sessionStorage.removeItem('isLoadNodes') 
   }
 }
-// test git ²âÊÔÐÞ¸Ä£¬²¢Ìá½»
+// test git æµ‹è¯•å†…å®¹æäº¤
 var getLastUrl = (str, yourStr) => str.slice(str.lastIndexOf(yourStr))
 router.beforeEach((to, from, next) => {
 
