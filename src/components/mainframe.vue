@@ -130,7 +130,9 @@ export default {
       })();
     };
   },
-  beforeRouteUpdate(to, from, next) {},
+  beforeRouteUpdate(to, from, next) {
+    next();
+  },
   watch: {
     $route(to, from) {},
     screenHeight(val) {

@@ -10,7 +10,7 @@ const systemConfig = {
     screen: {
       //工作区高度：去除header,footer之后，初始后赋值，窗口resize时调整，默认值为最小高度
       contentHeight: 500,
-      workAreaHeight: 480,
+      workAreaHeight: 680,
       DataHeight: 400,
       queryAreaHeight: 50
     },
@@ -45,7 +45,6 @@ const systemConfig = {
       state.isLoadRoutes = !state.isLoadRoutes
     },
     SET_ROUTERS: (state, obj) => {
-      // state.routers = obj.asRouters; //设置路由表
       state.addRouters = obj.asRouters; //动态路由表
       state.isLoadRoutes = true; //登录状态
       state.screen.contentHeight = document.documentElement.clientHeight;

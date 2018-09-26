@@ -3,9 +3,6 @@
   <a href="#" @click="expandMenu" id="menu-toggle">
     <font-awesome-icon icon="bars" size="2x" /> </a>
   <a id="mytitle" class="logotext" href="#" @click="testMenu">XXX管理系统 1.0</a>
-          <el-button type="small" @click="goTest">go</el-button>
-                  <el-button type="small" @click="goTest1">go1</el-button>
-                  <el-button type="small" @click="goTest2">go2</el-button>
   <nav class="navbar">
     <el-menu :default-active="activeIndex" @select="handleSelect" mode="horizontal">
       <el-menu-item index="1">
@@ -53,14 +50,11 @@
 
 <script>
 import $ from "jquery";
-import { Menus } from "@/router/menu";
-import { testMenus } from "@/router/test.js";
 export default {
   name: "sys-mainheader",
   components: {},
   data() {
     return {
-      sysMenus: Menus,
       switchValue: true,
       curUser: {
         name: "张三",
@@ -89,23 +83,7 @@ export default {
     changeSwi(val) {
       $("#testAside").toggle();
     },
-    getIndex() {
-      this.$router.push("/person");
-    },
-    goTest() {
-      this.$router.addRoutes(testMenus);
-      let loginParams = {
-        loginName: "admin",
-        password: "123456"
-      };
-      window.sessionStorage.setItem("user", JSON.stringify(loginParams));
-    },
-    goTest1() {
-      this.$router.push("/system/code");
-    },
-    goTest2() {
-      this.$router.push("/system/index");
-    },
+
     testMenu() {
       var os = require("os");
 

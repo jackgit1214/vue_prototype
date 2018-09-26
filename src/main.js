@@ -8,22 +8,17 @@ import DlgDraggable from "vue-element-dialog-draggable"
 import {
   Menus
 } from "@/router/menu.js"
-import {
-  testMenus
-} from "@/router/test.js"
+
 import customComponents from "@/components/pagecomponents/index"
 //import '~/css/bootstrap.min.css'
 // import '~/css/style.css'
 // import '~/css/custom.css'
-
 import '~/css/index.scss'
-
 import icon from "@/assets/icon"
-
 import {
   FontAwesomeIcon
 } from "@fortawesome/vue-fontawesome";
-//router.addRoutes(Menus)
+
 Vue.config.productionTip = false
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
@@ -33,25 +28,51 @@ let currentUser = window.sessionStorage.getItem('user');
 if (currentUser != undefined) {
   let data = JSON.parse(currentUser)
   if (data) {
-    let routes = Menus //动态增加的路由
-    router.addRoutes(routes)
-    //  this.$router.addRoutes(routes)
-    //window.sessionStorage.removeItem('isLoadNodes') 
+    store
+      .dispatch("setRouters")
+      .then(res => {
+        if (res.code == "200") {
+          router.addRoutes(store.state.sys.addRouters);
+        } else {}
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 }
 // test git 测试内容提交
-var getLastUrl = (str, yourStr) => str.slice(str.lastIndexOf(yourStr))
-router.beforeEach((to, from, next) => {
 
-  next()
-  /* must call `next` */
+router.beforeEach((to, from, next) => {
+  let currentUser = JSON.parse(window.sessionStorage.getItem('user'))
+  if (currentUser && to.path === '/login') {
+    //这里不使用router进行跳转，是因为，跳转到登录页面的时候，是需要重新登录，获取数据的，这个时候，会再次向router实例里面add路由规则，
+    //而next()跳转过去之后，没有刷新页面，之前的规则还是存在的，但是使用location的话，可以刷新页面，当刷新页面的时候，整个app会重新加载
+    //而我们在刷新之前已经把sessionStorage里的user移除了，所以上面的添加路由也不行执行
+    window.sessionStorage.removeItem('user')
+    window.sessionStorage.removeItem('isLoadNodes')
+    window.location.href = '/'
+    return false
+  }
+  if (!currentUser && to.path !== '/login') { //用户没有登录，并且路径不是login
+    next({
+      path: '/login'
+    })
+  } else {
+    if (to.path) {
+
+      next()
+    } else {
+      next({
+        path: '/nofound'
+      })
+    }
+  }
 })
 router.afterEach((to, from) => {
-  console.log("afterEach--------------" + to.path + "---------")
-
-  window.sessionStorage.setItem('new', JSON.stringify({
-    'path': to.path
-  }))
+  //console.log("afterEach--------------" + to.path + "---------")
+  // window.sessionStorage.setItem('new', JSON.stringify({
+  //   'path': to.path
+  // }))
 })
 router.onError(function (error) {
   console.log(error)
