@@ -75,7 +75,7 @@ export default {
       this.oriData = JSON.parse(JSON.stringify(this.codeData));
       //由于打开后，数据绑定完成，此时将是否更改，修改为false
       this.isChanged = false;
-      //console.log("opendialog.......................");
+      console.log("opendialog.......................");
     },
     closeDialog() {
       //console.log("子组件关闭事件！");
@@ -95,9 +95,9 @@ export default {
     codeData: {
       handler(newVal, oldVal) {
         var $this = this;
-        // console.log(
-        //   "HANDLER......................." + $this.oriData["INDEXID"]
-        // );
+        console.log(
+          "HANDLER......................." + $this.oriData["INDEXID"]
+        );
         for (let i in $this.oriData) {
           if (newVal[i] != $this.oriData[i]) {
             $this.isChanged = true;

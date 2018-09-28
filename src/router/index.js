@@ -12,6 +12,7 @@ Vue.use(Router)
 Vue.use(ElementUI)
 
 export default new Router({
+  mode: 'history',
   routes: [{
     path: '/',
     name: 'body',
@@ -25,7 +26,7 @@ export default new Router({
     name: "bodytest",
     component: body
   }, {
-    path: "/error",
+    path: "*",
     name: "error",
     component: error
   }]

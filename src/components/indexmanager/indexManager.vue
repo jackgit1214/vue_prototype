@@ -11,9 +11,8 @@
       <el-form-item>
         <el-button type="small" @click="findData">查询</el-button>
         <el-button type="small" @click="addData">新增</el-button>
-        <el-button type="small" @click="goTest">go</el-button>
       </el-form-item>
-      <edit-info @close-dialog="dataSubmit" :isEdit="isEdit" :options="options" :index-data="editData" v-if="editData" v-model="showDialog" ref="testCom" />
+      <edit-info @close-dialog="dataSubmit" :isEdit="isEdit" :options="options" :index-data="editData"  v-if="editData" v-model="showDialog" ref="testCom" />
     </el-form>
   </div>
   <el-container>
@@ -67,7 +66,7 @@
 </template>
 
 <script>
-import editInfo from "./edit.vue";
+import editInfo from "./editindex.vue";
 import indexTree from "./indexTree.vue";
 import listTable from "../pagecomponents/showComponent/tableList";
 import * as demoData from "./data.js";
@@ -87,20 +86,6 @@ export default {
         indexId: "",
         indexName: ""
       },
-      columnProp: [
-        { label: "test2", prop: "test2", width: "80" },
-        { label: "test3", prop: "test3", width: "80" }
-      ],
-      testData: [
-        {
-          test2: "11",
-          test3: "22"
-        },
-        {
-          test2: "33",
-          test3: "44"
-        }
-      ],
       filterIndexData: "",
       curWidth: 500,
       isEdit: false,
@@ -138,7 +123,9 @@ export default {
       page.total = values.length; //初始总行数
       let startRow = 0;
       let endRow = 0;
-      if (curPage > 1) startRow = (curPage - 1) * pageSize - 1;
+      if (curPage > 1) {
+        startRow = (curPage - 1) * pageSize;
+      }
       endRow = startRow + pageSize;
       return values.slice(startRow, endRow);
     }
@@ -169,17 +156,13 @@ export default {
     handleCurrentChange(val) {
       this.page.curpage = val;
     },
-    goTest() {
-      console.log(this.$router);
-      this.$router.push({ path: "/code" });
-    },
     addData() {
       let addData = {
         INDEXID: "",
         INDEXNAME: "",
         IDATATYPE: "",
         SUPERID: this.filterIndexData,
-        ISCORE: "",
+        ISCORE: "1",
         BREVIARY: ""
       };
       this.editData = JSON.parse(JSON.stringify(addData));
