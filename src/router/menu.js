@@ -1,7 +1,7 @@
 import indexManager from '@/components/indexmanager/indexManager'
 import codeIndex from '@/components/code/codeindex'
-import mainFrame from '@/components/mainframe.vue'
 
+import departmentManager from "@/components/system/departments/departmentindex"
 
 /**
  * 默认系统菜单
@@ -32,7 +32,7 @@ export const Menus = [{
   }, {
     path: '/system/department',
     name: '部门管理',
-    //component: department
+    component: departmentManager
   }, {
     path: '/system/depot',
     name: '库房维护',

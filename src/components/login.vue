@@ -75,6 +75,10 @@ export default {
         .then(res => {
           if (res.code == "200") {
             this.$router.addRoutes(this.$store.state.sys.addRouters);
+            window.sessionStorage.setItem(
+              "routers",
+              JSON.stringify(this.$store.state.sys.addRouters)
+            ); //存储路由
             this.$router.push("/");
           } else {
             this.handleReset2();

@@ -20,7 +20,7 @@
       <index-tree @node-click="nodeclick" />
     </el-aside>
     <el-main>
-      <el-table ref="singleTable" :data="indexDatas|indexFilter(filterIndexData,queryInfo)|pageFilter(page.size,page.curpage,page)" border :height="$store.state.sys.screen.DataHeight" stripe highlight-current-row style="width: 100%">
+      <el-table ref="singleTable" :data="indexDatas|indexFilter(filterIndexData,queryInfo)|pageFilters(page.size,page.curpage,page)" border :height="$store.state.sys.screen.DataHeight" stripe highlight-current-row style="width: 100%">
 
         <el-table-column type="selection" width="50">
         </el-table-column>
@@ -118,16 +118,6 @@ export default {
         return newV;
       });
       return newValues;
-    },
-    pageFilter: function(values, pageSize, curPage, page) {
-      page.total = values.length; //初始总行数
-      let startRow = 0;
-      let endRow = 0;
-      if (curPage > 1) {
-        startRow = (curPage - 1) * pageSize;
-      }
-      endRow = startRow + pageSize;
-      return values.slice(startRow, endRow);
     }
   },
   methods: {

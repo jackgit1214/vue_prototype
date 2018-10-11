@@ -45,7 +45,7 @@ const systemConfig = {
       state.isLoadRoutes = !state.isLoadRoutes
     },
     SET_ROUTERS: (state, obj) => {
-      state.addRouters = obj.asRouters; //动态路由表
+      state.addRouters = Menus; //动态路由表
       state.isLoadRoutes = true; //登录状态
       state.screen.contentHeight = document.documentElement.clientHeight;
       state.screen.workAreaHeight = state.screen.contentHeight - 120; //去除footer,header

@@ -24,14 +24,14 @@
       </el-scrollbar>
     </el-aside>
     <el-main>
-       <el-table ref="singleTable" :data="codeDatas|dataFilter(filterData,queryInfo)|pageFilter(page.size,page.curpage,page)" border :height="$store.state.sys.screen.DataHeight" stripe highlight-current-row style="width: 100%">
+       <el-table ref="singleTable" :data="codeDatas|dataFilter(filterData,queryInfo)|pageFilters(page.size,page.curpage,page)" border :height="$store.state.sys.screen.DataHeight" stripe highlight-current-row style="width: 100%">
         <el-table-column type="selection" width="50">
         </el-table-column>
         <el-table-column prop="CODE" label="代码" width="80">
         </el-table-column>
         <el-table-column prop="CODENAME" header-align="center" label="代码名称" width="150">
         </el-table-column>
-        <el-table-column label="备注" width="500" prop="REMARK">
+        <el-table-column label="备注" prop="REMARK">
         </el-table-column>
         <el-table-column  label="操作" width="140">
           <template slot-scope="scope">
@@ -101,14 +101,6 @@ export default {
         return newV;
       });
       return newValues;
-    },
-    pageFilter: function(values, pageSize, curPage, page) {
-      page.total = values.length; //初始总行数
-      let startRow = 0;
-      let endRow = 0;
-      if (curPage > 1) startRow = (curPage - 1) * pageSize;
-      endRow = startRow + pageSize;
-      return values.slice(startRow, endRow);
     }
   },
   methods: {

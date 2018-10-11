@@ -9,6 +9,8 @@ import {
   Menus
 } from "@/router/menu.js"
 
+import filter from "@/filters/filters.js"
+
 import customComponents from "@/components/pagecomponents/index"
 //import '~/css/bootstrap.min.css'
 // import '~/css/style.css'
@@ -24,23 +26,15 @@ Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 Vue.use(customComponents)
 Vue.use(DlgDraggable);
-let currentUser = window.sessionStorage.getItem('user');
-if (currentUser != undefined) {
-  let data = JSON.parse(currentUser)
-  if (data) {
-    store
-      .dispatch("setRouters")
-      .then(res => {
-        if (res.code == "200") {
-          router.addRoutes(store.state.sys.addRouters);
-        } else {}
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
+
+//当刷新时，加载动态路由
+let currentUser = JSON.parse(window.sessionStorage.getItem('user'))
+if (currentUser) { //存在 当前登录用户，说明是刷新。
+  // let cacheRouters = JSON.parse(window.sessionStorage.getItem("routers")); //取数路由信息
+  // let aaa = Menus;
+  store.commit("SET_ROUTERS", null)
+  router.addRoutes(store.state.sys.addRouters);
 }
-// test git 测试内容提交
 
 router.beforeEach((to, from, next) => {
   let currentUser = JSON.parse(window.sessionStorage.getItem('user'))
@@ -60,6 +54,7 @@ router.beforeEach((to, from, next) => {
   } else {
     if (to.path) {
       //to.matched.length 这里可以用length，检查是否路径匹配
+      console.log(to.matched.length)
       next()
     } else {
       next({
@@ -78,6 +73,7 @@ router.onError(function (error) {
   console.log(error)
 })
 
+
 new Vue({
   el: '#app',
   router,
@@ -87,56 +83,3 @@ new Vue({
   },
   template: '<App/>'
 })
-
-var testData = {
-  price: 2,
-  quantity: 5
-};
-let target = null;
-
-class Dep {
-  constructor() {
-    this.subscribes = [];
-  }
-  depend() {
-    if (target && !this.subscribes.includes(target)) {
-      this.subscribes.push(target);
-    }
-  }
-  notify() {
-    this.subscribes.forEach(sub => sub());
-  }
-}
-
-Object.keys(testData).forEach(key => {
-  let internalValue = testData[key];
-  const dep = new Dep();
-  Object.defineProperty(testData, key, {
-    get() {
-      dep.depend();
-      return internalValue;
-    },
-    set(newVal) {
-      internalValue = newVal;
-      dep.notify();
-    }
-  });
-});
-
-function watcher(myFunc) {
-  target = myFunc;
-  target();
-  target = null;
-}
-
-watcher(() => {
-  testData.total = testData.price * testData.quantity;
-});
-
-// console.log(testData.total);
-// testData.price = 20;
-// console.log(testData.total);
-// testData.price = 30;
-// console.log(testData.total);
-// testData.quantity = 10
-// console.log(testData.total);
