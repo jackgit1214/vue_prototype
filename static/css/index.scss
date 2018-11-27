@@ -53,6 +53,7 @@ body {
   position: relative;
   max-height: 100px;
   z-index: 1030;
+
   #menu-toggle {
     width: 25px;
     background-repeat: no-repeat;
@@ -61,6 +62,7 @@ body {
     padding-top: 2px;
     float: left;
   }
+
   .logotext {
     -webkit-transition: width 0.3s ease-in-out;
     -o-transition: width 0.3s ease-in-out;
@@ -77,6 +79,7 @@ body {
     overflow: hidden;
     text-decoration: none;
   }
+
   .navbar {
     -webkit-transition: margin-left 0.3s ease-in-out;
     -o-transition: margin-left 0.3s ease-in-out;
@@ -86,14 +89,17 @@ body {
     float: right;
     min-height: 49px;
     border-radius: 0;
+
     .navbar-search-input {
       padding-top: 15px;
       padding-bottom: 10px;
       width: 200px;
     }
+
     .navbar-search-input input {
       height: 35px;
     }
+
     .navbar-search-input:focus {
       width: 300px;
     }
@@ -162,4 +168,66 @@ body {
 .img-thumbnail {
   background: rgba(0, 0, 0, 0.24);
   border: 0;
+}
+
+/**/
+.el-main {
+  padding-top: 1px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.el-header {
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+
+/** 弹出窗口样式 对 element ui 样式重写**/
+.el-dialog__footer {
+  text-align: center;
+  padding: 10px 10px;
+}
+
+.el-dialog__header {
+  padding: 10px 10px 10px 20px;
+}
+
+.el-dialog__headerbtn {
+  top: 10px;
+}
+
+.el-dialog__body {
+  padding: 5px 5px;
+}
+
+/** 表单内容通用样式 */
+.el-form--inline .el-form-item {
+  margin-right: 2px;
+}
+
+.el-form-item {
+  margin-bottom: 5px;
+}
+
+.el-form-item .el-form-item__label {
+  padding-right: 5px;
+}
+
+.el-form-item .el-form-item__content {
+  margin-left: 0px !important;
+}
+
+.el-form {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.el-switch {
+  padding-top: 10px;
+}
+
+.el-tabs__item {
+  padding-right: 5px;
+  padding-left: 5px;
 }

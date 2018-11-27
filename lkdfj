@@ -1,0 +1,56 @@
+[33mcommit b06d3fac16a2e24dd320c99a800a080fc3f2e087[m
+Author: jackgit1214 <hongyullj@sohu.com>
+Date:   Tue Nov 27 10:09:16 2018 +0800
+
+    git commit;
+
+[33mcommit f09708e19699271138b1c40be74f0b7de9a73e45[m
+Author: jackgit1214 <hongyullj@sohu.com>
+Date:   Thu Oct 11 10:31:44 2018 +0800
+
+    修改部门管理的数据，更改树的实现方式
+    
+    Signed-off-by: jackgit1214 <hongyullj@sohu.com>
+
+[33mcommit 6228c4987d0ce8eb91a84cd01898b0fc05915b42[m
+Author: jackgit1214 <hongyullj@sohu.com>
+Date:   Fri Sep 28 14:29:33 2018 +0800
+
+    指标页面修改初始值 ，分页问题
+
+[33mcommit 2c915a960251c9d3d3127af9aec9fd6cb935fd01[m
+Author: jackgit1214 <hongyullj@sohu.com>
+Date:   Wed Sep 26 20:37:04 2018 +0800
+
+    调整响应界面及路由动态加载
+
+[33mcommit dca207db34bf0be6a3aaa7fe50ebb150cd9853ae[m
+Author: jackgit1214 <hongyullj@sohu.com>
+Date:   Tue Sep 25 20:30:26 2018 +0800
+
+    重新 提交 乱码 问题
+
+[33mcommit a7523fc8ca028fef3880bee7e4583c4285e67315[m
+Author: jackgit1214 <hongyullj@sohu.com>
+Date:   Tue Sep 25 20:20:05 2018 +0800
+
+    测试修改
+
+[33mcommit d08e9743566064607c0913eeadb362fc1f950b96[m
+Merge: 5e26688 3778a41
+Author: jackgit1214 <hongyullj@sohu.com>
+Date:   Tue Sep 25 20:11:41 2018 +0800
+
+    test main.js
+
+[33mcommit 5e26688055f1e49ca6cd9747705953cd40859c0e[m
+Author: jackgit1214 <hongyullj@sohu.com>
+Date:   Tue Sep 25 19:13:33 2018 +0800
+
+    first commit
+
+[33mcommit 3778a41495cd83b4598417886ad85d5ca6afacba[m
+Author: jackgit1214 <hongyullj@sohu.com>
+Date:   Tue Sep 25 19:13:33 2018 +0800
+
+    first commit

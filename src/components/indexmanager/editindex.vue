@@ -1,35 +1,61 @@
 <template>
-<el-dialog @open="openDialog" @close="closeDialog" ref="dailog" title="信息编辑" v-draggable :visible.sync="showDialog" width="450px" modal :before-close="handleClose">
-  <el-form ref="indexData" :disabled="!isEdit" label-width="100px" :model="indexData" width="400px" label-position="right">
-    <el-form-item label="指标代码：">
-      <el-input size="small" v-model="indexData.INDEXID" v-bind:disabled="isAdd" placeholder="代码"></el-input>
-    </el-form-item>
-    <el-form-item label="指标名称：">
-      <el-input size="small" v-model="indexData.INDEXNAME" placeholder="指标名称"></el-input>
-    </el-form-item>
-    <el-form-item label="数据类型：">
-      <el-select v-model="indexData.IDATATYPE" placeholder="请选择">
-        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-        </el-option>
-      </el-select>
-    </el-form-item>
-    <el-form-item label="上级代码：">
-      <el-input size="small" :disabled="true" v-model="indexData.SUPERID" ></el-input>
-    </el-form-item>
-    <el-form-item label="是否核心：">
-      <el-switch style="display: block" v-model="indexData.ISCORE" active-text="是" inactive-text="否" active-value="1" inactive-value="0">
-      </el-switch>
-
-    </el-form-item>
-    <el-form-item label="摘要：">
-      <el-input type="textarea" v-model="indexData.BREVIARY" placeholder="摘要"></el-input>
-    </el-form-item>
-  </el-form>
-  <span slot="footer" class="dialog-footer">
-    <el-button type="info" @click="handleClose">关 闭</el-button>
-    <el-button type="primary" v-if="isEdit"  @click="handleSubmit">确 定</el-button>
-  </span>
-</el-dialog>
+  <el-dialog
+    @open="openDialog"
+    @close="closeDialog"
+    ref="dailog"
+    title="信息编辑"
+    v-draggable
+    :visible.sync="showDialog"
+    width="450px"
+    modal
+    :before-close="handleClose"
+  >
+    <el-form
+      ref="indexData"
+      :disabled="!isEdit"
+      label-width="100px"
+      :model="indexData"
+      width="400px"
+      label-position="right"
+    >
+      <el-form-item label="指标代码：">
+        <el-input size="small" v-model="indexData.INDEXID" v-bind:disabled="isAdd" placeholder="代码"></el-input>
+      </el-form-item>
+      <el-form-item label="指标名称：">
+        <el-input size="small" v-model="indexData.INDEXNAME" placeholder="指标名称"></el-input>
+      </el-form-item>
+      <el-form-item label="数据类型：">
+        <el-select v-model="indexData.IDATATYPE" placeholder="请选择">
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="上级代码：">
+        <el-input size="small" :disabled="true" v-model="indexData.SUPERID"></el-input>
+      </el-form-item>
+      <el-form-item label="是否核心：">
+        <el-switch
+          style="display: block"
+          v-model="indexData.ISCORE"
+          active-text="是"
+          inactive-text="否"
+          active-value="1"
+          inactive-value="0"
+        ></el-switch>
+      </el-form-item>
+      <el-form-item label="摘要：">
+        <el-input type="textarea" v-model="indexData.BREVIARY" placeholder="摘要"></el-input>
+      </el-form-item>
+    </el-form>
+    <span slot="footer" class="dialog-footer">
+      <el-button type="info" @click="handleClose">关 闭</el-button>
+      <el-button type="primary" v-if="isEdit" @click="handleSubmit">确 定</el-button>
+    </span>
+  </el-dialog>
 </template>
 
 <script>
@@ -124,47 +150,11 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.el-form-item {
-  margin-bottom: 5px;
-}
-
-.el-form-item .el-form-item__label {
-  padding-right: 5px;
-}
-
-.el-form-item .el-form-item__content {
-  margin-left: 0px !important;
-}
+<style lang="scss" scoped>
+/* 指标的样式*/
 
 .el-input,
 .el-textarea {
   width: 280px;
-}
-
-.el-form {
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-.el-dialog__body {
-  padding: 5px 10px;
-}
-
-.el-dialog__footer {
-  text-align: center;
-  padding: 10px 10px;
-}
-
-.el-dialog__header {
-  padding: 10px 10px 10px 20px;
-}
-
-.el-dialog__headerbtn {
-  top: 10px;
-}
-
-.el-switch {
-  padding-top: 10px;
 }
 </style>

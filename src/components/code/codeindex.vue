@@ -1,54 +1,73 @@
 <template>
-<el-main>
-  <div class="block">
-    <el-form :inline="true">
-      <el-form-item label="代码：">
-        <el-input size="small" ref="code" clearable placeholder="代码"></el-input>
-      </el-form-item>
-      <el-form-item label="名称：">
-        <el-input size="small" clearable ref="codename" placeholder="名称"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="small" @click="findData">查询</el-button>
-        <el-button type="small" @click="addData">新增</el-button>
-      </el-form-item>
+  <el-main>
+    <div class="block">
+      <el-form :inline="true">
+        <el-form-item label="代码：">
+          <el-input size="small" ref="code" clearable placeholder="代码"></el-input>
+        </el-form-item>
+        <el-form-item label="名称：">
+          <el-input size="small" clearable ref="codename" placeholder="名称"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="small" @click="findData">查询</el-button>
+          <el-button type="small" @click="addData">新增</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+    <code-edit
+      @close-dialog="dataSubmit"
+      :isEdit="isEdit"
+      :code-data="editData"
+      v-if="editData"
+      v-model="showDialog"
+      ref="testCom"
+    />
 
-    </el-form>
-  </div>
-<code-edit @close-dialog="dataSubmit" :isEdit="isEdit" :code-data="editData" v-if="editData" v-model="showDialog" ref="testCom" />
-
-  <el-container>
-    <el-aside width="200px" :style="{height:$store.state.sys.screen.DataHeight+'px'}"  >
-      <el-scrollbar style="height:100%" > 
-        <code-tree @node-click="nodeclick"/>
-      </el-scrollbar>
-    </el-aside>
-    <el-main>
-       <el-table ref="singleTable" :data="codeDatas|dataFilter(filterData,queryInfo)|pageFilters(page.size,page.curpage,page)" border :height="$store.state.sys.screen.DataHeight" stripe highlight-current-row style="width: 100%">
-        <el-table-column type="selection" width="50">
-        </el-table-column>
-        <el-table-column prop="CODE" label="代码" width="80">
-        </el-table-column>
-        <el-table-column prop="CODENAME" header-align="center" label="代码名称" width="150">
-        </el-table-column>
-        <el-table-column label="备注" prop="REMARK">
-        </el-table-column>
-        <el-table-column  label="操作" width="140">
-          <template slot-scope="scope">
-            <el-button @click="handleEdit(scope.$index, scope.row,0)" type="text" size="small">查看</el-button>
-            <el-button type="text" size="small" @click="handleEdit(scope.$index, scope.row,1)">编辑</el-button>
-            <el-button size="small" type="text" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-      <div class="block">
-        <el-pagination ref="pagebar" background :pager-count="5" @size-change="pageChange" @current-change="handleCurrentChange" :current-page="0" :page-sizes="[5, 10, 15, 9999]" :page-size="5" layout="total, sizes, prev, pager, next, jumper" :total="page.total"></el-pagination>
-      </div>
-    </el-main>
-
-  </el-container>
-
-</el-main>
+    <el-container>
+      <el-aside width="200px" :style="{height:$store.state.sys.screen.DataHeight+'px'}">
+        <el-scrollbar style="height:100%">
+          <code-tree @node-click="nodeclick"/>
+        </el-scrollbar>
+      </el-aside>
+      <el-main>
+        <el-table
+          ref="singleTable"
+          :data="codeDatas|dataFilter(filterData,queryInfo)|pageFilters(page.size,page.curpage,page)"
+          border
+          :height="$store.state.sys.screen.DataHeight"
+          stripe
+          highlight-current-row
+          style="width: 100%"
+        >
+          <el-table-column type="selection" width="50"></el-table-column>
+          <el-table-column prop="CODE" label="代码" width="80"></el-table-column>
+          <el-table-column prop="CODENAME" header-align="center" label="代码名称" width="150"></el-table-column>
+          <el-table-column label="备注" prop="REMARK"></el-table-column>
+          <el-table-column label="操作" width="140">
+            <template slot-scope="scope">
+              <el-button @click="handleEdit(scope.$index, scope.row,0)" type="text" size="small">查看</el-button>
+              <el-button type="text" size="small" @click="handleEdit(scope.$index, scope.row,1)">编辑</el-button>
+              <el-button size="small" type="text" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+        <div class="block">
+          <el-pagination
+            ref="pagebar"
+            background
+            :pager-count="5"
+            @size-change="pageChange"
+            @current-change="handleCurrentChange"
+            :current-page="0"
+            :page-sizes="[5, 10, 15, 9999]"
+            :page-size="5"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="page.total"
+          ></el-pagination>
+        </div>
+      </el-main>
+    </el-container>
+  </el-main>
 </template>
 
 <script>
@@ -197,18 +216,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.el-main {
-  padding-top: 1px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-.el-header {
-  padding-right: 5px;
-  padding-left: 5px;
-}
-
-.el-switch {
-  padding-top: 0px;
-}
+/* 指标的样式*/
 </style>

@@ -1,28 +1,57 @@
 <template>
-<el-dialog @open="openDialog" @close="closeDialog" ref="dailog" title="信息编辑" v-draggable :visible.sync="showDialog"
- width="450px" modal :before-close="handleClose">
-  <el-form ref="departmentData" :disabled="!isEdit" label-width="100px" :model="departmentData" width="400px" label-position="right">
-     <input type="hidden" v-model="departmentData.SUPERID"/>
+  <div class="deptStyle">
+    <el-dialog
+      @open="openDialog"
+      @close="closeDialog"
+      ref="dailog"
+      title="信息编辑"
+      v-draggable
+      :visible.sync="showDialog"
+      width="450px"
+      modal
+      :before-close="handleClose"
+    >
+      <el-form
+        ref="departmentData"
+        :disabled="!isEdit"
+        label-width="100px"
+        :model="departmentData"
+        width="400px"
+        label-position="right"
+      >
+        <input type="hidden" v-model="departmentData.SUPERID">
 
-   <el-form-item label="部门ID：">
-      <el-input size="small" v-model="departmentData.DEPTID"  placeholder="部门ID"></el-input>
-    </el-form-item>  
-    <el-form-item label="部门名称：">
-      <el-input size="small" v-model="departmentData.DEPT_NAME"  placeholder="部门名称"></el-input>
-    </el-form-item>
-    <el-form-item label="上级部门：">
-      <el-input size="small" v-model="departmentData.superObject.DEPT_NAME" v-if="departmentData.superObject" placeholder="上级部门" disabled=""></el-input>
-    </el-form-item>
-    
-    <el-form-item label="描述：">
-      <el-input type="textarea" v-model="departmentData.dept_desc" placeholder="描述"></el-input>
-    </el-form-item>
-  </el-form>
-  <span slot="footer" class="dialog-footer">
-    <el-button type="info" @click="handleClose">关 闭</el-button>
-    <el-button type="primary" v-if="isEdit"  @click="handleSubmit">确 定</el-button>
-  </span>
-</el-dialog>
+        <el-form-item label="部门ID：">
+          <el-input
+            size="small"
+            v-model="departmentData.DEPTID"
+            :disabled="isAdd"
+            placeholder="部门ID"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="部门名称：">
+          <el-input size="small" v-model="departmentData.DEPT_NAME" placeholder="部门名称"></el-input>
+        </el-form-item>
+        <el-form-item label="上级部门：">
+          <el-input
+            size="small"
+            v-model="departmentData.superObject.DEPT_NAME"
+            v-if="departmentData.superObject"
+            placeholder="上级部门"
+            disabled
+          ></el-input>
+        </el-form-item>
+
+        <el-form-item label="描述：">
+          <el-input type="textarea" v-model="departmentData.dept_desc" placeholder="描述"></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="info" @click="handleClose">关 闭</el-button>
+        <el-button type="primary" v-if="isEdit" @click="handleSubmit">确 定</el-button>
+      </span>
+    </el-dialog>
+  </div>
 </template>
 
 <script>
@@ -110,47 +139,16 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.el-form-item {
-  margin-bottom: 5px;
-}
+<style lang="scss" scoped >
+/* 部门的样式 */
+.deptStyle {
+  .el-input,
+  .el-textarea {
+    width: 280px;
+  }
 
-.el-form-item .el-form-item__label {
-  padding-right: 5px;
-}
-
-.el-form-item .el-form-item__content {
-  margin-left: 0px !important;
-}
-
-.el-input,
-.el-textarea {
-  width: 280px;
-}
-
-.el-form {
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-.el-dialog__body {
-  padding: 5px 10px;
-}
-
-.el-dialog__footer {
-  text-align: center;
-  padding: 10px 10px;
-}
-
-.el-dialog__header {
-  padding: 10px 10px 10px 20px;
-}
-
-.el-dialog__headerbtn {
-  top: 10px;
-}
-
-.el-switch {
-  padding-top: 10px;
+  .el-switch {
+    padding-top: 10px;
+  }
 }
 </style>

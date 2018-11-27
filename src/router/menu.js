@@ -1,6 +1,6 @@
 import indexManager from '@/components/indexmanager/indexManager'
 import codeIndex from '@/components/code/codeindex'
-
+import userManager from '@/components/system/users/userindex.vue';
 import departmentManager from "@/components/system/departments/departmentindex"
 
 /**
@@ -28,7 +28,7 @@ export const Menus = [{
   }, {
     path: '/system/user',
     name: '用户维护',
-    //component: user
+    component: userManager
   }, {
     path: '/system/department',
     name: '部门管理',
