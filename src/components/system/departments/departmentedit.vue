@@ -5,7 +5,7 @@
      <input type="hidden" v-model="departmentData.SUPERID"/>
 
    <el-form-item label="部门ID：">
-      <el-input size="small" v-model="departmentData.DEPTID"  placeholder="部门ID"></el-input>
+      <el-input size="small" v-model="departmentData.DEPTID" :disabled="isAdd"  placeholder="部门ID"></el-input>
     </el-form-item>  
     <el-form-item label="部门名称：">
       <el-input size="small" v-model="departmentData.DEPT_NAME"  placeholder="部门名称"></el-input>

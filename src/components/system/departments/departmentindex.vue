@@ -1,33 +1,30 @@
 <template>
-<el-main>
-  <div class="block">
-     <el-form :inline="true" >
-      <el-form-item label="部门名称：">
-        <el-input size="small" ref="departmentname" clearable placeholder="部门名称"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="small" @click="findData">查询</el-button>
-        <el-button type="small" @click="addData">新增</el-button>
-      </el-form-item>
-      <edit-info @close-dialog="dataSubmit" :isEdit="isEdit" :department-data="editData"
-      v-if="editData" v-model="showDialog" ref="testCom" />
-    </el-form>
-  </div>
   <el-container>
     <el-aside width="200px">
-      <department-tree @node-click="nodeclick" ref="departTree"/>
-      
+      <department-tree @node-click="nodeclick" ref="departTree" />
     </el-aside>
     <el-main>
-      <el-table ref="singleTable" :data="departmentDatas|departmentFilter(filterDepartmentData,queryInfo)|pageFilters(page.size,page.curpage,page)"
-         border :height="$store.state.sys.screen.DataHeight" stripe highlight-current-row style="width: 100%">
-                <el-table-column type="selection" width="50">
+    <div class="block">
+      <el-form :inline="true">
+        <el-form-item label="部门名称：">
+          <el-input size="small" ref="departmentname" clearable placeholder="部门名称"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="small" @click="findData">查询</el-button>
+          <el-button type="small" @click="addData">新增</el-button>
+        </el-form-item>
+        <edit-info @close-dialog="dataSubmit" :isEdit="isEdit" :department-data="editData" v-if="editData" v-model="showDialog" ref="testCom" />
+      </el-form>
+    </div>
+    <div class="block">
+      <el-table ref="singleTable" :data="departmentDatas|departmentFilter(filterDepartmentData,queryInfo)|pageFilters(page.size,page.curpage,page)" border :height="$store.state.sys.screen.DataHeight" stripe highlight-current-row style="width: 100%">
+        <el-table-column type="selection" width="50">
         </el-table-column>
-        <el-table-column prop = "DEPT_NAME" label="部门名称">
+        <el-table-column prop="DEPT_NAME" label="部门名称">
 
         </el-table-column>
 
-        <el-table-column  show-overflow-tooltip prop="dept_desc" label="描述">
+        <el-table-column show-overflow-tooltip prop="dept_desc" label="描述">
         </el-table-column>
         <el-table-column fixed="right" label="操作" width="140">
           <template slot-scope="scope">
@@ -40,11 +37,10 @@
       <div class="block">
         <el-pagination ref="pagebar" background :pager-count="5" @size-change="pageChange" @current-change="handleCurrentChange" :current-page="0" :page-sizes="[5, 10, 15, 9999]" :page-size="5" layout="total, sizes, prev, pager, next, jumper" :total="page.total"></el-pagination>
       </div>
+    </div>
     </el-main>
-
   </el-container>
 
-</el-main>
 </template>
 
 <script>
@@ -132,8 +128,10 @@ export default {
 
     handleEdit(index, curData, isEdit) {
       this.editData = JSON.parse(JSON.stringify(curData));
+
       if (!this.editData.superObject)
         this.editData.superObject = this.filterDepartmentData;
+
       if (this.page.curpage == 1) this.curEditDepartment = index + 1;
       else
         this.curEditDepartment =
@@ -150,16 +148,18 @@ export default {
     },
     dataSubmit(val) {
       // 新增，直接添加
+      let node = this.$refs.departTree.getCurrentNode();
       if (this.isEdit == 2) {
-        let node = this.$refs.departTree.getCurrentNode();
         if (!node.children) this.$set(node, "children", []);
         node.children.push(val);
         this.sortData();
       }
       //修改，查找元素
       if (this.isEdit == 1) {
-        let node = this.$refs.departTree.getCurrentNode();
-        this.$set(node.children, this.curEditDepartment, val);
+        let editIndex = node.children.findIndex(function(element) {
+          return element.DEPTID == val.DEPTID;
+        });
+        this.$set(node.children, editIndex, val);
       }
     },
     nodeclick(node) {
