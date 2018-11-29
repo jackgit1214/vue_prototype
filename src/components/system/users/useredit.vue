@@ -11,7 +11,7 @@
       modal
       :before-close="handleClose"
     >
-      <el-tabs :tab-position="tabPosition" style="height: 300px;">
+      <el-tabs :tab-position="tabPosition" style="height: 250px;">
         <el-tab-pane label="用户信息">
           <el-form
             ref="userData"
