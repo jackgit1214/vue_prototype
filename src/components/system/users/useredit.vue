@@ -11,17 +11,17 @@
       modal
       :before-close="handleClose"
     >
-      <el-tabs :tab-position="tabPosition" style="height: 250px;">
-        <el-tab-pane label="用户信息">
-          <el-form
-            ref="userData"
-            :inline="true"
-            :disabled="!isEdit"
-            label-width="90px"
-            :model="userData"
-            width="380px"
-            label-position="right"
-          >
+      <el-form
+        ref="userData"
+        :inline="true"
+        :disabled="!isEdit"
+        label-width="90px"
+        :model="userData"
+        width="380px"
+        label-position="right"
+      >
+        <el-tabs :tab-position="tabPosition" style="height: 250px;">
+          <el-tab-pane label="用户信息">
             <input type="hidden" v-model="userData.USERID">
             <el-row :gutter="5">
               <el-col :span="12">
@@ -29,8 +29,7 @@
                   <el-form-item
                     label="登录名："
                     prop="LOGINCODE"
-                    :rules="[{required:true,message:'登录名不能为空',trigger:'blue'},{min: 6,
-            max: 15,message: '长度在6到15个字符',trigger: 'blur' }]"
+                    :rules="[{required:true,message:'登录名不能为空',trigger:'blue'},{min: 6,max: 15,message: '长度在6到15个字符',trigger: 'blur' }]"
                   >
                     <el-input
                       size="small"
@@ -46,8 +45,7 @@
                   <el-form-item
                     label="姓名："
                     prop="username"
-                    :rules="[{required:true,message:'姓名不能为空'}, {
-            max: 30,message: '长度介于1到30个字符',trigger: 'blur' }]"
+                    :rules="[{required:true,message:'姓名不能为空'}, {max: 30,message: '长度介于1到30个字符',trigger: 'blur' }]"
                   >
                     <el-input size="small" v-model="userData.username" placeholder="姓名"></el-input>
                   </el-form-item>
@@ -127,11 +125,24 @@
                 </div>
               </el-col>
             </el-row>
-          </el-form>
-        </el-tab-pane>
-        <el-tab-pane label="所属角色">角色管理</el-tab-pane>
-      </el-tabs>
-
+          </el-tab-pane>
+          <el-tab-pane label="所属角色">
+            <div style="text-align: center">
+              <el-transfer
+                style="text-align: left; display: inline-block"
+                v-model="value3"
+                :left-default-checked="['24c129573f154cc38a1930c4548b3cf7', 3]"
+                :right-default-checked="[1]"
+                :render-content="renderFunc"
+                :titles="['角色', '已选角色']"
+                :format="{noChecked: '${total}',        hasChecked: '${checked}/${total}'     }"
+                @change="handleChange"
+                :data="data"
+              ></el-transfer>
+            </div>
+          </el-tab-pane>
+        </el-tabs>
+      </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button type="info" @click="handleClose">关 闭</el-button>
         <el-button type="primary" v-if="isEdit" @click="handleSubmit('userData')">确 定</el-button>
@@ -142,7 +153,7 @@
 
 <script>
 import { uuidUtils } from "@/common/common.js";
-
+import * as demoData from "./data.js";
 export default {
   props: {
     value: {},
@@ -155,12 +166,30 @@ export default {
     isEdit: 0
   },
   data() {
+    const generateData = _ => {
+      const data = [];
+      let roles = demoData.roles;
+
+      roles.forEach((role, index) => {
+        data.push({
+          key: role.ROLEID,
+          label: role.ROLENAME
+        });
+      });
+
+      return data;
+    };
     return {
       showDialog: false,
       selectValue: "",
       tabPosition: "right",
       isAdd: false,
       isChanged: false,
+      data: generateData(),
+      value3: ["6b912123f72a465782c91f0f4d330dec"],
+      renderFunc(h, option) {
+        return <span>{option.label}</span>;
+      },
       oriData: {
         type: Object
       },
@@ -223,6 +252,11 @@ export default {
         this.showDialog = false;
       }
     },
+    handleChange(value, direction, movedKeys) {
+      //value 右则列表值 
+      // movedkeys 当前移动的值 
+      console.log(value, direction, movedKeys);
+    },
     handleSubmit(done) {
       this.$refs[done].validate(valid => {
         if (valid) {
@@ -232,7 +266,7 @@ export default {
           return false;
         }
       });
-      return;
+
       this.$emit("close-dialog", this.userData);
       this.showDialog = false;
     },
@@ -297,5 +331,15 @@ export default {
     width: 140px !important;
   }
 }
+.el-transfer /deep/ .el-transfer-panel {
+  width: 180px !important;
+  .el-transfer-panel__body {
+    height: 210px !important;
+  }
+  .el-transfer-panel__list {
+    height: 200px !important;
+  }
+}
 </style>
+
 

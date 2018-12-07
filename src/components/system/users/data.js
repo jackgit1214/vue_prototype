@@ -233,3 +233,35 @@ export const deptUsers = [{
     "Updating_Date": "2017-05-16"
   }
 ]
+
+export const roles = [{
+    "ROLEID": "24c129573f154cc38a1930c4548b3cf7",
+    "ROLENAME": "第一个角色",
+    "roledesc": "第一个角色",
+    "isSystem": "0"
+  },
+  {
+    "ROLEID": "24c129573f154cc38a1930c4548b3cf712",
+    "ROLENAME": "第二个角色",
+    "roledesc": "第二个角色",
+    "isSystem": "0"
+  },
+  {
+    "ROLEID": "5657188787cf43fcace15c46d533d5c9",
+    "ROLENAME": "第三个角色",
+    "roledesc": "第三个角色",
+    "isSystem": "0"
+  },
+  {
+    "ROLEID": "6b912123f72a465782c91f0f4d330dec",
+    "ROLENAME": "系统管理员",
+    "roledesc": "系统管理员",
+    "isSystem": "1"
+  },
+  {
+    "ROLEID": "da7011bc40e4416a9a9fe8226539e6ea2",
+    "ROLENAME": "第四个角色",
+    "roledesc": "第四个角色",
+    "isSystem": "0"
+  }
+]
