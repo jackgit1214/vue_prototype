@@ -54,7 +54,7 @@ router.beforeEach((to, from, next) => {
   } else {
     if (to.path) {
       //to.matched.length 这里可以用length，检查是否路径匹配
-      console.log(to.matched.length)
+      //console.log(to.matched.length)
       next()
     } else {
       next({

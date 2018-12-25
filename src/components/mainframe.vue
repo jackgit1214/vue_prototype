@@ -117,7 +117,7 @@ export default {
     };
   },
   created() {
-    console.log("mainfrmae ............................");
+    //console.log("mainfrmae ............................");
   },
   mounted() {
     const that = this;

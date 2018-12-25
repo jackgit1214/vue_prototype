@@ -2,7 +2,7 @@ import indexManager from '@/components/indexmanager/indexManager'
 import codeIndex from '@/components/code/codeindex'
 import userManager from '@/components/system/users/userindex.vue';
 import departmentManager from "@/components/system/departments/departmentindex"
-
+import storeroomManager from "@/components/system/storeroom/storeroomindex"
 /**
  * 默认系统菜单
  */
@@ -36,7 +36,7 @@ export const Menus = [{
   }, {
     path: '/system/depot',
     name: '库房维护',
-    //component: depot
+    component: storeroomManager
   }, {
     path: '/system/custom',
     name: '定制管理',
