@@ -19,14 +19,14 @@
             :depotData="editData"
             v-if="editData"
             v-model="showDialog"
-            ref="testCom"
+            ref="storeRoomEdit"
           />
         </el-form>
       </div>
       <div class="block">
         <el-table
           ref="depotDatas"
-          :data="storeroomDatas|pageFilters(page.size,page.curpage,page)"
+          :data="listTableData"
           border
           :height="$store.state.sys.screen.DataHeight"
           stripe
@@ -52,8 +52,8 @@
             ref="pagebar"
             background
             :pager-count="5"
-            @size-change="pageChange"
-            @current-change="handleCurrentChange"
+            @size-change="pageSizeChange"
+            @current-change="pageChange"
             :current-page="0"
             :page-sizes="[5, 10, 15, 9999]"
             :page-size="5"
@@ -70,8 +70,10 @@
 import editInfo from "./storeroomedit.vue";
 import storeRoomTree from "./storeroomtree.vue";
 import { uuidUtils } from "@/common/common.js";
-import store, { depotRootSuperId, depotRootKey } from "./data.js";
+import DataUtility from "@/common/datautilitytools.js";
+
 export default {
+  mixins: [DataUtility], //混入工具类
   name: "page",
   components: {
     editInfo,
@@ -79,25 +81,21 @@ export default {
   },
   data() {
     return {
+      depotRootSuperId: "ABC",
+      depotRootKey: "000",
       editData: {
         type: Object
       },
-
-      curWidth: 500,
       isEdit: false,
-      showDialog: false,
-      page: {
-        size: 5,
-        curpage: 1,
-        total: 5
-      },
-      storeroomDatas: []
+      showDialog: false
     };
   },
   watch: {
     //editData(newVal, oldVal) {}
   },
-  mounted() {},
+  mounted() {
+    // console.log("===================000000000000000000000====================");
+  },
   updated() {},
 
   methods: {
@@ -106,20 +104,20 @@ export default {
       //
     },
     sortData() {},
-    pageChange(val) {
-      this.page.size = val;
-    },
-    handleCurrentChange(val) {
-      this.page.curpage = val;
-    },
+
     addData() {
       let addData = {
         depotId: "",
         depotCode: "",
         depotName: "",
+        superId: "",
+        endflag: "1",
+        superDepot: null,
         dutyMan: "",
         note: ""
       };
+      let curNode = this.$refs.storeRoomTree.getCurrentNode();
+      addData.superDepot = curNode;
       this.editData = JSON.parse(JSON.stringify(addData));
       this.isEdit = 2;
       this.showDialog = true;
@@ -127,37 +125,29 @@ export default {
 
     handleEdit(index, curData, isEdit) {
       this.editData = JSON.parse(JSON.stringify(curData));
+      this.editData.superDepot = this.$refs.storeRoomTree.getCurrentNode();
       this.isEdit = isEdit;
       this.showDialog = true;
     },
     handleDelete(index, curData) {
-      let delIndex = this.storeroomDatas.findIndex(function(element) {
-        return element.depotId == curData.depotId;
-      });
       let $this = this;
-      this.$confirm("是否确定删除？", "警告", {
-        type: "error"
-      })
-        .then(mes => {
-          store.deleteData(curData.depotId, function() {
-            $this.$delete($this.storeroomDatas, delIndex);
-            $this.$refs.storeRoomTree.deleteNode(curData);
-            $this.$message({
-              showClose: true,
-              message: "删除成功",
-              type: "success",
-              duration: 1000
-            });
-          });
-        })
-        .catch(error => {});
+      this.removeData("/public/test/deleteDepot", curData.depotId, function() {
+        $this.$refs.storeRoomTree.deleteNode(curData);
+      });
     },
-    dataSubmit(val) {},
-    nodeclick(node) {
+    dataSubmit(val) {
       let $this = this;
-      store.getDepotdata(node.data, function(resData) {
-        $this.storeroomDatas = resData;
+      this.updateData("/public/test/update", val, function() {
+        $this.$refs.storeRoomTree.addNode(val);
       });
+    },
+    nodeclick(node) {
+      let params = {
+        param: {
+          superid: node.data + "," //逗号表示是否模糊查询
+        }
+      };
+      this.initListTable("/public/test/depotDataByPage", params);
     }
   }
 };
