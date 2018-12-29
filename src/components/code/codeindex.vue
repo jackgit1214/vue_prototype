@@ -24,7 +24,7 @@
     />
 
     <el-container>
-      <el-aside width="200px" :style="{height:$store.state.sys.screen.DataHeight+'px'}">
+      <el-aside width="200px" :style="{height:$store.state.sys.screen.DataHeight - 60 +'px'}">
         <el-scrollbar style="height:100%">
           <code-tree @node-click="nodeclick"/>
         </el-scrollbar>
@@ -34,7 +34,7 @@
           ref="singleTable"
           :data="codeDatas|dataFilter(filterData,queryInfo)|pageFilters(page.size,page.curpage,page)"
           border
-          :height="$store.state.sys.screen.DataHeight"
+          :height="$store.state.sys.screen.DataHeight - 80"
           stripe
           highlight-current-row
           style="width: 100%"

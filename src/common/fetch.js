@@ -54,9 +54,12 @@ axios.interceptors.request.use(config => { //在此处统一配置公共参数
 
 /**响应拦截器 */
 axios.interceptors.response.use(response => {
-    //  console.log("======================================")
-    // console.log(response)
-    let res = response.data;
+    //console.log("======================================")
+    //console.log(response)
+    let res = {};
+    res.data = response.data;
+    res.code = response.status
+    res.message = response.statusText
     switch (res.code) {
       case '200':
 

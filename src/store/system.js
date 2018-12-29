@@ -49,7 +49,7 @@ const systemConfig = {
       state.isLoadRoutes = true; //登录状态
       state.screen.contentHeight = document.documentElement.clientHeight;
       state.screen.workAreaHeight = state.screen.contentHeight - 120; //去除footer,header
-      state.screen.DataHeight = state.screen.workAreaHeight - 80;
+      state.screen.DataHeight = state.screen.workAreaHeight;
     },
     CLEAR_ROUTERS: (state) => {
       // state.routers = routes;

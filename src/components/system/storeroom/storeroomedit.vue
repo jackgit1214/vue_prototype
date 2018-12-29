@@ -20,7 +20,7 @@
         width="380px"
         label-position="right"
       >
-        <!---->
+        <!--  -->
         <input type="hidden" v-model="depotData.depotId">
         <el-row :gutter="5">
           <el-col :span="12">
@@ -28,7 +28,7 @@
               <el-form-item
                 label="库房代码："
                 prop="depotCode"
-                :rules="[{required:true,message:'库房代码不能为空',trigger:'blue'},{min: 6,max: 15,message: '长度在6到15个字符',trigger: 'blur' }]"
+                :rules="[{required:true,message:'库房代码不能为空',trigger:'blue'},{min: 3,max: 15,message: '长度在3到15个字符',trigger: 'blur' }]"
               >
                 <el-input
                   size="small"
@@ -44,7 +44,7 @@
               <el-form-item
                 label="库房名称："
                 prop="depotName"
-                :rules="[{required:true,message:'库房名称不能为空'}, {max: 30,message: '长度介于1到30个字符',trigger: 'blur' }]"
+                :rules="[{required:true}, {max: 30,message: '长度介于1到30个字符',trigger: 'blur' }]"
               >
                 <el-input size="small" v-model="depotData.depotName" placeholder="库房名称"></el-input>
               </el-form-item>
@@ -63,7 +63,14 @@
           <el-col :span="12">
             <div>
               <el-form-item label="上级名称：">
-                <el-input size="small" v-model="depotData.superid" placeholder="上级名称"></el-input>
+                <input type="hidden" v-model="depotData.superId">
+                <el-input
+                  size="small"
+                  v-if="depotData.superDepot"
+                  v-model="depotData.superDepot.depotName"
+                  v-bind:disabled="true"
+                  placeholder="上级名称"
+                ></el-input>
               </el-form-item>
             </div>
           </el-col>
@@ -80,7 +87,7 @@
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button type="info" @click="handleClose">关 闭</el-button>
-        <el-button type="primary" v-if="isEdit" @click="handleSubmit('userData')">确 定</el-button>
+        <el-button type="primary" v-if="isEdit" @click="handleSubmit('depotData')">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -121,29 +128,33 @@ export default {
             this.handleSubmit();
           })
           .catch(_ => {
+            this.$refs["depotData"].clearValidate();
             this.showDialog = false;
           });
       } else {
+        this.$refs["depotData"].clearValidate();
         this.showDialog = false;
       }
     },
     handleChange(value, direction, movedKeys) {
       //value 右则列表值
       // movedkeys 当前移动的值
-      console.log(value, direction, movedKeys);
+      //console.log(value, direction, movedKeys);
     },
     handleSubmit(done) {
+      let $this = this;
       this.$refs[done].validate(valid => {
         if (valid) {
-          alert("submit!");
+          this.depotData.superid = this.depotData.superDepot.depotId;
+          $this.$emit("close-dialog", this.depotData);
         } else {
-          //console.log("error submit!!");
           return false;
         }
-      });
 
-      this.$emit("close-dialog", this.userData);
-      this.showDialog = false;
+        this.$refs["depotData"].clearValidate();
+        this.showDialog = false;
+      });
+      return;
     },
     openDialog() {
       if (this.isEdit == 2) this.isAdd = false;
@@ -152,6 +163,7 @@ export default {
       }
       //记录原数据值
       this.oriData = JSON.parse(JSON.stringify(this.depotData));
+
       //由于打开后，数据绑定完成，此时将是否更改，修改为false
       this.isChanged = false;
     },
@@ -174,7 +186,7 @@ export default {
     showDialog(val) {
       this.$emit("input", val);
     },
-    userData: {
+    depotData: {
       handler(newVal, oldVal) {
         var $this = this;
         for (let i in $this.oriData) {
