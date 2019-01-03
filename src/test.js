@@ -44,7 +44,7 @@ watcher(() => {
 });
 
 // console.log(testData.total);
-// testData.price = 20;
+// testData.price = 20; dddd
 // console.log(testData.total);
 // testData.price = 30;
 // console.log(testData.total);
