@@ -43,10 +43,11 @@ watcher(() => {
   testData.total = testData.price * testData.quantity;
 });
 
+//
 // console.log(testData.total);
 // testData.price = 20; dddd
 // console.log(testData.total);
 // testData.price = 30;
 // console.log(testData.total);
-// testData.quantity = 10
+// testData.quantity = 10 //sdsf
 // console.log(testData.total);
