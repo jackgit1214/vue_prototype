@@ -71,7 +71,7 @@ export default {
         let node = this.$refs.storeroomtree.getNode(key);
         node.expand();
       }
-      //this.$refs.storeroomtree.filter(val);
+      this.$refs.storeroomtree.filter(val);
     },
     treeLoad(node, resolve) {
       if (node.data == null) return;
