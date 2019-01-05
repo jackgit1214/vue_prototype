@@ -69,14 +69,16 @@ var DataUtility = {
     updateData: function (url, businessData, callback) {
       $http.post(url, businessData).then(res => {
         if (res.code == "200") {
-          this.$message({
-            showClose: true,
-            message: "保存成功",
-            type: "success",
-            duration: 1000
+
+          this.$alert('数据保存成功！', '提示', {
+            confirmButtonText: '确定',
+            center: true,
+            type: 'success',
+            callback: action => {
+              callback(res.data);
+              this.getListData(this.params);
+            }
           });
-          this.getListData(this.params);
-          callback(res.data);
         }
       });
 
