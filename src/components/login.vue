@@ -1,31 +1,46 @@
 <template>
-<el-container class="login-back">
-  <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px" class="demo-ruleForm login-container">
-    <h3 class="title">系统登录</h3>
-    <el-form-item prop="loginId">
-      <el-input type="text" v-model="ruleForm2.loginId" auto-complete="off" placeholder="账号"></el-input>
-    </el-form-item>
-    <el-form-item prop="password">
-      <el-input type="password" v-model="ruleForm2.password" auto-complete="off" placeholder="密码"></el-input>
-    </el-form-item>
-    <el-checkbox v-model="checked" checked class="remember">记住密码</el-checkbox>
-    <el-form-item style="width:100%;">
-      <el-row>
-         <el-col  :span="6">&nbsp;</el-col>
-        <el-col :span="6">
-          <el-button type="primary" style="width:80%;" @click.native.prevent="handleSubmit2" :loading="logining">
-            登录
-          </el-button>
-        </el-col>
-        <el-col  :span="6">
-          <el-button style="width:80%;" @click.native.prevent="handleReset2">重置</el-button>
-        </el-col>
-        <el-col  :span="6">&nbsp;</el-col>
-      </el-row>
-
-    </el-form-item>
-  </el-form>
-</el-container>
+  <el-container class="login-back" :style="{height:windowH+'px'}">
+    <div class="login-container">
+      <el-form
+        :model="ruleForm2"
+        :rules="rules2"
+        ref="ruleForm2"
+        label-position="left"
+        label-width="0px"
+      >
+        <h3 class="title">系统登录</h3>
+        <el-form-item prop="loginId">
+          <el-input type="text" v-model="ruleForm2.loginId" auto-complete="off" placeholder="账号"></el-input>
+        </el-form-item>
+        <el-form-item prop="password">
+          <el-input
+            type="password"
+            v-model="ruleForm2.password"
+            auto-complete="off"
+            placeholder="密码"
+          ></el-input>
+        </el-form-item>
+        <el-checkbox v-model="checked" checked class="remember">记住密码</el-checkbox>
+        <el-form-item style="width:100%;">
+          <el-row>
+            <el-col :span="6">&nbsp;</el-col>
+            <el-col :span="6">
+              <el-button
+                type="primary"
+                style="width:80%;"
+                @click.native.prevent="handleSubmit2"
+                :loading="logining"
+              >登录</el-button>
+            </el-col>
+            <el-col :span="6">
+              <el-button style="width:80%;" @click.native.prevent="handleReset2">重置</el-button>
+            </el-col>
+            <el-col :span="6">&nbsp;</el-col>
+          </el-row>
+        </el-form-item>
+      </el-form>
+    </div>
+  </el-container>
 </template>
 
 <script>
@@ -42,6 +57,7 @@ export default {
         loginId: "admin",
         password: "123456"
       },
+      windowH: document.documentElement.clientHeight,
       rules2: {
         loginId: [
           {
@@ -134,22 +150,29 @@ export default {
   border-radius: 5px;
   -moz-border-radius: 5px;
   background-clip: padding-box;
-  margin-bottom: 20px;
   background-color: #f9fafc;
-
-  margin: 180px auto;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
   border: 0px solid #729bd1;
   width: 450px;
+  height: 250px;
   padding: 35px 35px 15px 35px;
+
   .title {
     margin: 0px auto 40px auto;
     text-align: center;
     color: #505458;
   }
+
   .remember {
     margin: 0px 0px 35px 0px;
   }
 }
+
 .login-back {
   background-color: #62ce4d;
   background-image: url("../assets/img/back-img/skin-greenish.jpg");
