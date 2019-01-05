@@ -1,7 +1,7 @@
 <template>
   <div class="depotStyle">
     <el-dialog
-      @open="openDialog"
+      @opened="openDialog"
       @close="closeDialog"
       ref="dailog"
       title="信息编辑"
@@ -28,10 +28,11 @@
               <el-form-item
                 label="库房代码："
                 prop="depotCode"
-                :rules="[{required:true,message:'库房代码不能为空',trigger:'blue'},{min: 3,max: 15,message: '长度在3到15个字符',trigger: 'blur' }]"
+                :rules="[{required:true,message:'库房代码不能为空',trigger:'blur'},{min: 3,max: 15,message: '长度在3到15个字符',trigger: 'blur' }]"
               >
                 <el-input
                   size="small"
+                  ref="depotCode"
                   v-model="depotData.depotCode"
                   v-bind:disabled="isAdd"
                   placeholder="库房代码"
@@ -107,8 +108,6 @@ export default {
   data() {
     return {
       showDialog: false,
-      selectValue: "",
-      tabPosition: "right",
       isAdd: false,
       isChanged: false,
       oriData: {
@@ -116,7 +115,6 @@ export default {
       }
     };
   },
-  computed: {},
   methods: {
     handleClose(done) {
       if (this.isChanged) {
@@ -136,11 +134,7 @@ export default {
         this.showDialog = false;
       }
     },
-    handleChange(value, direction, movedKeys) {
-      //value 右则列表值
-      // movedkeys 当前移动的值
-      //console.log(value, direction, movedKeys);
-    },
+
     handleSubmit(done) {
       let $this = this;
       this.$refs[done].validate(valid => {
@@ -151,12 +145,12 @@ export default {
           return false;
         }
 
-        this.$refs["depotData"].clearValidate();
         this.showDialog = false;
       });
       return;
     },
     openDialog() {
+      this.$refs.depotData.clearValidate();
       if (this.isEdit == 2) this.isAdd = false;
       else {
         this.isAdd = true;
@@ -167,14 +161,7 @@ export default {
       //由于打开后，数据绑定完成，此时将是否更改，修改为false
       this.isChanged = false;
     },
-    closeDialog() {
-      //console.log("子组件关闭事件！");
-      //console.log(uuidUtils);
-      // let uuid = uuidUtils.getUUID();
-      // console.log(uuid);
-      //console.log(uuidUtils.getUUID_NoLine());
-      //this.$emit("close-dialog", "cc");
-    }
+    closeDialog() {}
   },
   mounted() {
     this.showDialog = this.value;
