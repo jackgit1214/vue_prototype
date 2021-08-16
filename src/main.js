@@ -25,7 +25,9 @@ Vue.config.productionTip = false
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 Vue.use(customComponents)
-Vue.use(DlgDraggable);
+Vue.use(DlgDraggable,{
+  containment: true
+});
 
 //当刷新时，加载动态路由
 let currentUser = JSON.parse(window.sessionStorage.getItem('user'))
